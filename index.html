@@ -12,24 +12,32 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      padding: 30px;
+      min-height: 100vh;
       margin: 0;
     }
 
     .container {
       background-color: #1c1c1c;
-      color: #ffffff;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px #444;
-      width: 300px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h2 {
       text-align: center;
     }
 
-    input {
+    label, input, button {
+      display: block;
       width: 100%;
-      padding: 8px;
       margin-bottom: 10px;
+    }
+
+    input {
+      padding: 8px;
       background-color: #2a2a2a;
       color: white;
       border: 1px solid #555;
@@ -37,17 +45,31 @@
     }
 
     button {
-      padding: 10px 15px;
+      padding: 10px;
       background-color: #28a745;
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      width: 100%;
     }
 
     button:hover {
       background-color: #218838;
+    }
+
+    .gasto-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .gasto-item input {
+      flex: 1;
+    }
+
+    #resultado {
+      margin-top: 15px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -55,31 +77,81 @@
   <div class="container">
     <h2>Simulador de Ahorro Mensual</h2>
 
-    <label for="ahorro">¿Cuánto puedes ahorrar mensualmente?</label>
-    <input type="number" id="ahorro" placeholder="Ej: 100000" />
+    <label for="ingreso">¿Cuánto ganas al mes?</label>
+    <input type="number" id="ingreso" placeholder="Ej: 1500000" />
 
-    <label for="meses">¿Durante cuántos meses ahorrarás?</label>
-    <input type="number" id="meses" placeholder="Ej: 12" />
+    <h3>Gastos Mensuales</h3>
+    <div id="gastos"></div>
 
-    <button onclick="calcularAhorro()">Calcular Ahorro Total</button>
+    <div class="gasto-item">
+      <input type="text" placeholder="Nombre del gasto" id="nombreGasto" />
+      <input type="number" placeholder="Valor del gasto" id="valorGasto" />
+    </div>
+
+    <button onclick="agregarGasto()">Agregar gasto</button>
+    <button onclick="calcularAhorro()">Calcular Ahorro</button>
 
     <p id="resultado"></p>
   </div>
 
   <script>
-    function calcularAhorro() {
-      const ahorro = parseFloat(document.getElementById('ahorro').value);
-      const meses = parseInt(document.getElementById('meses').value);
-      const resultado = document.getElementById('resultado');
+    let listaGastos = [];
 
-      if (isNaN(ahorro) || isNaN(meses) || ahorro <= 0 || meses <= 0) {
-        resultado.textContent = "Por favor, ingresa valores válidos.";
+    function agregarGasto() {
+      const nombre = document.getElementById('nombreGasto').value;
+      const valor = parseFloat(document.getElementById('valorGasto').value);
+
+      if (!nombre || isNaN(valor) || valor <= 0) {
+        alert('Por favor ingresa un nombre de gasto y un valor válido.');
         return;
       }
 
-      const total = ahorro * meses;
-      resultado.textContent = `Tu ahorro total será de $${total.toLocaleString('es-CO')}`;
+      listaGastos.push({ nombre, valor });
+
+      document.getElementById('nombreGasto').value = '';
+      document.getElementById('valorGasto').value = '';
+
+      mostrarGastos();
+    }
+
+    function mostrarGastos() {
+      const contenedor = document.getElementById('gastos');
+      contenedor.innerHTML = '';
+      listaGastos.forEach((gasto, index) => {
+        contenedor.innerHTML += `<p>${gasto.nombre}: $${gasto.valor.toLocaleString('es-CO')} 
+          <button onclick="eliminarGasto(${index})">❌</button></p>`;
+      });
+    }
+
+    function eliminarGasto(index) {
+      listaGastos.splice(index, 1);
+      mostrarGastos();
+    }
+
+    function calcularAhorro() {
+      const ingreso = parseFloat(document.getElementById('ingreso').value);
+      if (isNaN(ingreso) || ingreso <= 0) {
+        alert('Por favor ingresa un ingreso mensual válido.');
+        return;
+      }
+
+      const totalGastos = listaGastos.reduce((total, gasto) => total + gasto.valor, 0);
+      const ahorro = ingreso - totalGastos;
+
+      let mensaje = `
+        Ingreso mensual: $${ingreso.toLocaleString('es-CO')}<br>
+        Total de gastos: $${totalGastos.toLocaleString('es-CO')}<br>
+      `;
+
+      if (ahorro < 0) {
+        mensaje += `<span style="color: red;">Estás gastando más de lo que ganas. Déficit de $${Math.abs(ahorro).toLocaleString('es-CO')}</span>`;
+      } else {
+        mensaje += `Puedes ahorrar: <span style="color: #28a745;">$${ahorro.toLocaleString('es-CO')}</span>`;
+      }
+
+      document.getElementById('resultado').innerHTML = mensaje;
     }
   </script>
 </body>
 </html>
+
