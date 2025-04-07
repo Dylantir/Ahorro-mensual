@@ -95,6 +95,9 @@
   <div class="container">
     <h1>Simulador de Ahorro Mensual</h1>
 
+    <h3>Mes del registro</h3>
+    <input type="text" id="mesRegistro" placeholder="Ej: Marzo 2025" />
+
     <h3>¿Cuánto ganas al mes?</h3>
     <input type="number" id="ingreso" placeholder="Ej: 1500000" oninput="formatearIngreso()" />
     <p id="ingresoFormateado"></p>
@@ -108,6 +111,12 @@
     <div class="btn-center">
       <button onclick="agregarGasto()">Agregar gasto</button>
     </div>
+    <div class="btn-center">
+      <button onclick="mostrarComparacion()">Ver comparación por meses</button>
+    </div>
+    
+    <div id="tablaComparacion"></div>
+
     <div id="gastos"></div>
 
     <div class="btn-center">
@@ -119,6 +128,7 @@
 
   <script>
     let listaGastos = [];
+    let historialMensual = [];
 
     function formatearIngreso() {
       const ingresoInput = document.getElementById('ingreso');
@@ -184,6 +194,67 @@
 
       const totalGastos = listaGastos.reduce((total, gasto) => total + gasto.valor, 0);
       const ahorro = ingreso - totalGastos;
+
+      const mesActual = new Date().toLocalDateString('es-CO', { month: 'long', year: 'numeric'});
+
+      registrosMensuales.push({
+        mes: mesActual,
+        ingreso,
+        gastos: [...listaGastos],
+        totalGastos,
+        ahorro
+      });
+      let mensaje = `
+        Ingreso mensual: $${ingreso.toLocaleString('es-CO')}<br>
+        Total de gastos: $${totalGastos.toLocaleString('es-CO')}<br>
+      `;
+
+      if (ahorro < 0) {
+        mensaje += `<span style="color: red;">Estás gastando más de lo que ganas. Déficit de $${Math.abs(ahorro).toLocaleString('es-CO')}</span>`;
+      } else {
+        mensaje += `Puedes ahorrar: <span style="color: #28a745;">$${ahorro.toLocaleString('es-CO')}</span>`;
+    }
+
+      document.getElementById('resultado').innerHTML = mensaje;
+    }
+    function mostrarComparacion() {
+      const contenedor = document.getElementById('tablaComparacion');
+      if (registrosMensuales.length === 0) {
+        contenedor.innerHTML = '<p style="color: yellow;">No hay datos guardados para comparar.</p>';
+        return;
+      }
+      let tablaHTML = `
+      <h3>Comparación Mensual</h3>
+      <table border="1" style="width:100%; border-collapse: collapse; background: #333; color: #fff;">
+      <thead>
+      <tr>
+          <th>Mes</th>
+          <th>Ingreso</th>
+          <th>Total Gastos</th>
+          <th>Ahorro</th>
+      </tr>
+      </thead>
+      <tbody>
+      `;
+      registrosMensuales.forEach(reg => {
+        tablaHTML += `
+        <tr>
+          <td>${reg.mes}</td>
+          <td>$${reg.ingreso.toLocaleString('es-CO')}</td>
+          <td>$${reg.totalGastos.toLocaleString('es-CO')}</td>
+          <td style="color: ${reg.ahorro < 0 ? 'red' : 'lightgreen'}">
+        $${reg.ahorro.toLocaleString('es-CO')}
+        </td>
+        </tr>
+        `;
+      }); 
+      tablaHTML += `
+      </tbody>
+      </table>
+      `;
+      contenedor.innerHTML = tablaHTML;
+    }
+
 
       let mensaje = `
         Ingreso mensual: $${ingreso.toLocaleString('es-CO')}<br>
