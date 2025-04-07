@@ -1,22 +1,13 @@
-document.getElementById('formulario').addEventListener('submit', function(event) {
-    event.preventDefault();
+function calcularAhorro() {
+  const ahorro = parseFloat(document.getElementById('ahorro').value);
+  const meses = parseInt(document.getElementById('meses').value);
+  const resultado = document.getElementById('resultado');
 
-    const ingresos = parseFloat(document.getElementById('ingresos').value);
-    const gastos = parseFloat(document.getElementById('gastos').value);
-    const resultado = document.getElementById('resultado');
+  if (isNaN(ahorro) || isNaN(meses) || ahorro <= 0 || meses <= 0) {
+    resultado.textContent = "Por favor, ingresa valores válidos.";
+    return;
+  }
 
-    if (isNaN(ingresos) || isNaN(gastos)) {
-        resultado.textContent = 'Por favor ingresa números válidos.';
-        return;
-    }
-
-    const ahorro = ingresos - gastos;
-
-    if (ahorro > 0) {
-        resultado.textContent = `¡Buen trabajo! Puedes ahorrar $${ahorro.toFixed(2)} este mes.`;
-    } else if (ahorro === 0) {
-        resultado.textContent = 'Tus ingresos y gastos están equilibrados. No hay ahorro.';
-    } else {
-        resultado.textContent = `¡Cuidado! Estás gastando más de lo que ganas. Déficit de $${Math.abs(ahorro).toFixed(2)}.`;
-    }
-});
+  const total = ahorro * meses;
+  resultado.textContent = `Tu ahorro total será de $${total.toLocaleString('es-CO')}`;
+}
