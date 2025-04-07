@@ -4,12 +4,57 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Simulador de Ahorro Mensual</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000000;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #1c1c1c;
+      color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #444;
+      width: 300px;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      background-color: #2a2a2a;
+      color: white;
+      border: 1px solid #555;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <h2>Simulador de Ahorro Mensual</h2>
-    
+
     <label for="ahorro">¿Cuánto puedes ahorrar mensualmente?</label>
     <input type="number" id="ahorro" placeholder="Ej: 100000" />
 
@@ -21,6 +66,20 @@
     <p id="resultado"></p>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    function calcularAhorro() {
+      const ahorro = parseFloat(document.getElementById('ahorro').value);
+      const meses = parseInt(document.getElementById('meses').value);
+      const resultado = document.getElementById('resultado');
+
+      if (isNaN(ahorro) || isNaN(meses) || ahorro <= 0 || meses <= 0) {
+        resultado.textContent = "Por favor, ingresa valores válidos.";
+        return;
+      }
+
+      const total = ahorro * meses;
+      resultado.textContent = `Tu ahorro total será de $${total.toLocaleString('es-CO')}`;
+    }
+  </script>
 </body>
 </html>
