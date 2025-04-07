@@ -2,7 +2,8 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     padding: 40px;
-    background-color: #cce5ff;
+    background-color: #000000;
+    color: #ffffff;
 }
 
 form {
