@@ -20,8 +20,13 @@
       border-radius: 10px;
     }
 
-    h1, h3 {
-      color: #00ffcc;
+    h1 {
+      color: red;
+      text-align: center;
+    }
+
+    label, h3 {
+      color: #00ccff;
     }
 
     input[type="number"], input[type="text"] {
@@ -32,18 +37,23 @@
       border-radius: 5px;
     }
 
-    button {
-      background-color: #00ffcc;
-      border: none;
-      color: black;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
+    .btn-center {
+      display: flex;
+      justify-content: center;
       margin-top: 10px;
     }
 
+    button {
+      background-color: #ff3333;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
     button:hover {
-      background-color: #00cc99;
+      background-color: #cc0000;
     }
 
     .gasto-item {
@@ -86,10 +96,14 @@
       <input type="text" placeholder="Nombre del gasto" id="nombreGasto" />
       <input type="number" placeholder="Valor del gasto" id="valorGasto" />
     </div>
-    <button onclick="agregarGasto()">Agregar gasto</button>
+    <div class="btn-center">
+      <button onclick="agregarGasto()">Agregar gasto</button>
+    </div>
     <div id="gastos"></div>
 
-    <button onclick="calcularAhorro()">Calcular Ahorro</button>
+    <div class="btn-center">
+      <button onclick="calcularAhorro()">Calcular Ahorro</button>
+    </div>
 
     <div id="resultado"></div>
   </div>
