@@ -255,22 +255,3 @@
       contenedor.innerHTML = tablaHTML;
     }
 
-
-      let mensaje = `
-        Ingreso mensual: $${ingreso.toLocaleString('es-CO')}<br>
-        Total de gastos: $${totalGastos.toLocaleString('es-CO')}<br>
-      `;
-
-      if (ahorro < 0) {
-        mensaje += `<span style="color: red;">Estás gastando más de lo que ganas. Déficit de $${Math.abs(ahorro).toLocaleString('es-CO')}</span>`;
-      } else {
-        mensaje += `Puedes ahorrar: <span style="color: #28a745;">$${ahorro.toLocaleString('es-CO')}</span>`;
-      }
-
-      document.getElementById('resultado').innerHTML = mensaje;
-    }
-  </script>
-</body>
-</html>
-
-
