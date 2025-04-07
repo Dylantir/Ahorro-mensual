@@ -54,7 +54,7 @@
     }
 
     button:hover {
-      background-color: #ffffff;
+      background-color: #cc0000;
     }
 
     .gasto-item {
@@ -96,6 +96,7 @@
     <div class="gasto-item">
       <input type="text" placeholder="Nombre del gasto" id="nombreGasto" />
       <input type="number" placeholder="Valor del gasto" id="valorGasto" oninput="formatearIngreso()" />
+      <p id="ingresoFormateado"></p>
     </div>
     <div class="btn-center">
       <button onclick="agregarGasto()">Agregar gasto</button>
