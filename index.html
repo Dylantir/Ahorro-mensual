@@ -42,6 +42,13 @@
       justify-content: center;
       margin-top: 10px;
     }
+    .btn-eliminar {
+      color: red; /* Cambia a cualquier color: red, blue, #00ff00, etc. */
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
 
     button {
       background-color: #ff3333;
@@ -94,7 +101,7 @@
     <h3>Gastos Mensuales</h3>
     <div class="gasto-item">
       <input type="text" placeholder="Nombre del gasto" id="nombreGasto" />
-      <input type="number" placeholder="Valor del gasto" id="valorGasto" />
+      <input type="number" placeholder="Valor del gasto" id="valorGasto" oninput="formatearIngreso()" />
     </div>
     <div class="btn-center">
       <button onclick="agregarGasto()">Agregar gasto</button>
