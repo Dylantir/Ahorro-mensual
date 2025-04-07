@@ -166,7 +166,7 @@
       contenedor.innerHTML = '';
       listaGastos.forEach((gasto, index) => {
         contenedor.innerHTML += `<p>${gasto.nombre}: $${gasto.valor.toLocaleString('es-CO')} 
-          <button class="btn-eliminar" onclick="eliminarGasto(${index})">❌</button></p>`;
+          <button class="btn-eliminar" onclick="eliminarGasto(${index})">X</button></p>`;
       });
     }
 
