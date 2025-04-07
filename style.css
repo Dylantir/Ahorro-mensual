@@ -2,11 +2,11 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     padding: 40px;
-    background-color: #1e0b06;
+    background-color: #cce5ff;
 }
 
 form {
-    background-color: #000000;
+    background-color: #fff;
     padding: 20px;
     margin: auto;
     width: 300px;
