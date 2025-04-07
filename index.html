@@ -82,6 +82,13 @@
       margin-top: -10px;
       margin-bottom: 10px;
     }
+    .btn-eliminar {
+      color: red;
+      background: transparent;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -95,8 +102,8 @@
     <h3>Gastos Mensuales</h3>
     <div class="gasto-item">
       <input type="text" placeholder="Nombre del gasto" id="nombreGasto" />
-      <input type="number" placeholder="Valor del gasto" id="valorGasto" oninput="formatearIngreso()" />
-      <p id="ingresoFormateado"></p>
+      <input type="number" placeholder="Valor del gasto" id="valorGasto" oninput="formatearValorGasto()" />
+      <p id="valorGastoFormateado"></p>
     </div>
     <div class="btn-center">
       <button onclick="agregarGasto()">Agregar gasto</button>
@@ -124,6 +131,17 @@
         ingresoFormateado.textContent = '';
       }
     }
+    function formatearValorGasto() {
+      const valorInput = document.getElementById('valorGasto');
+      const valorFormateado = document.getElementById('valorGastoFormateado');
+      const valor = parseFloat(valorInput.value);
+
+      if (!isNaN(valor)) {
+        valorFormateado.textContent = `Valor escrito: $${valor.toLocaleString('es-CO')}`;
+      } else {
+        valorFormateado.textContent = '';
+      }
+    }
 
     function agregarGasto() {
       const nombre = document.getElementById('nombreGasto').value;
@@ -138,6 +156,7 @@
 
       document.getElementById('nombreGasto').value = '';
       document.getElementById('valorGasto').value = '';
+      document.getElementById('valorGastoFormateado').textContent = '';
 
       mostrarGastos();
     }
@@ -147,7 +166,7 @@
       contenedor.innerHTML = '';
       listaGastos.forEach((gasto, index) => {
         contenedor.innerHTML += `<p>${gasto.nombre}: $${gasto.valor.toLocaleString('es-CO')} 
-          <button onclick="eliminarGasto(${index})">❌</button></p>`;
+          <button class="btn-eliminar" onclick="eliminarGasto(${index})">❌</button></p>`;
       });
     }
 
