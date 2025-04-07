@@ -2,59 +2,48 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulador de Ahorro Mensual</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulador de Ahorro</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       background-color: #000000;
       color: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 30px;
-      min-height: 100vh;
-      margin: 0;
+      font-family: Arial, sans-serif;
+      padding: 20px;
     }
 
     .container {
+      max-width: 600px;
+      margin: 0 auto;
       background-color: #1c1c1c;
       padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 0 10px #444;
+    }
+
+    h1, h3 {
+      color: #00ffcc;
+    }
+
+    input[type="number"], input[type="text"] {
       width: 100%;
-      max-width: 500px;
-    }
-
-    h2 {
-      text-align: center;
-    }
-
-    label, input, button {
-      display: block;
-      width: 100%;
-      margin-bottom: 10px;
-    }
-
-    input {
       padding: 8px;
-      background-color: #2a2a2a;
-      color: white;
-      border: 1px solid #555;
+      margin: 6px 0 12px;
+      border: none;
       border-radius: 5px;
     }
 
     button {
-      padding: 10px;
-      background-color: #28a745;
-      color: white;
+      background-color: #00ffcc;
       border: none;
+      color: black;
+      padding: 10px 20px;
       border-radius: 5px;
       cursor: pointer;
+      margin-top: 10px;
     }
 
     button:hover {
-      background-color: #218838;
+      background-color: #00cc99;
     }
 
     .gasto-item {
@@ -68,34 +57,57 @@
     }
 
     #resultado {
-      margin-top: 15px;
+      margin-top: 20px;
       font-weight: bold;
+    }
+
+    #gastos p {
+      margin: 5px 0;
+    }
+
+    #ingresoFormateado {
+      font-size: 14px;
+      color: #bbbbbb;
+      margin-top: -10px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Simulador de Ahorro Mensual</h2>
+    <h1>Simulador de Ahorro Mensual</h1>
 
     <label for="ingreso">¿Cuánto ganas al mes?</label>
-    <input type="number" id="ingreso" placeholder="Ej: 1500000" />
+    <input type="number" id="ingreso" placeholder="Ej: 1500000" oninput="formatearIngreso()" />
+    <p id="ingresoFormateado"></p>
 
     <h3>Gastos Mensuales</h3>
-    <div id="gastos"></div>
-
     <div class="gasto-item">
       <input type="text" placeholder="Nombre del gasto" id="nombreGasto" />
       <input type="number" placeholder="Valor del gasto" id="valorGasto" />
     </div>
-
     <button onclick="agregarGasto()">Agregar gasto</button>
+    <div id="gastos"></div>
+
     <button onclick="calcularAhorro()">Calcular Ahorro</button>
 
-    <p id="resultado"></p>
+    <div id="resultado"></div>
   </div>
 
   <script>
     let listaGastos = [];
+
+    function formatearIngreso() {
+      const ingresoInput = document.getElementById('ingreso');
+      const ingresoFormateado = document.getElementById('ingresoFormateado');
+      const valor = parseFloat(ingresoInput.value);
+
+      if (!isNaN(valor)) {
+        ingresoFormateado.textContent = `Ingreso escrito: $${valor.toLocaleString('es-CO')}`;
+      } else {
+        ingresoFormateado.textContent = '';
+      }
+    }
 
     function agregarGasto() {
       const nombre = document.getElementById('nombreGasto').value;
@@ -154,3 +166,4 @@
   </script>
 </body>
 </html>
+
