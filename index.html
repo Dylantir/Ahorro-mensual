@@ -1,356 +1,361 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="icon" type="image/png" href="Ahorro.png">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Simulador de Ahorro Mensual</title>
-  <style>
-    body {
-      background-color: #000000;
-      color: #ffffff;
-      background-color: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-    }
+  <link rel="icon" type="image/png" href="Ahorro.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    /* ====== MENÚ LATERAL ====== */
-    .sidebar {
-      width: 150px;
-      background-color: #1c1c1c;
-      padding: 20px;
-      height: 100vh;
-      position: fixed;
-      left: 0;
-      top: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      border-right: 3px solid #ffffff;
-    }
+  <title>Simulador de Ahorro Mensual</title>
 
-    .sidebar h2 {
-      color: red;
-      text-align: center;
-    }
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+/* ====== MENÚ LATERAL ====== */
+.sidebar {
+  width: 150px;
+  background-color: #1c1c1c;
+  padding: 20px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-right: 3px solid #ffffff;
+}
 
-    .sidebar button {
-      background-color: #ff0000;
-      color: white;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 5px;
-      font-size: 16px;
-      transition: background-color 0.3s;
-    }
+.sidebar h2 {
+  color: red;
+  text-align: center;
+}
 
-    .sidebar button:hover {
-      background-color: #cc0000;
-    }
+.sidebar button {
+  background-color: #ff0000;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
 
-    /* ====== CONTENIDO PRINCIPAL ====== */
-    .main-content {
-      margin-left: 240px;
-      padding: 20px;
-      width: 100%;
-    }
+.sidebar button:hover {
+  background-color: #cc0000;
+}
 
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      max-width: 700px;
-      margin: auto;
-      background-color: #1c1c1c;
-      padding: 20px;
-      border-radius: 10px;
-      border-radius: 10px solid #ffffff;
-    }
+/* ====== CONTENIDO PRINCIPAL ====== */
+.main-content {
+  margin-left: 240px;
+  padding: 20px;
+  width: 100%;
+}
 
-    h1 {
-@@ -91,67 +135,112 @@
-      font-size: 16px;
-      cursor: pointer;
-    }
+.container {
+  max-width: 700px;
+  margin: auto;
+  background-color: #1c1c1c;
+  padding: 20px;
+  border-radius: 10px solid #ffffff;
+}
 
-    #tablaComparacion, #seccionGraficas {
-      margin-top: 30px;
-    }
+h1 {
+  color: red;
+  text-align: center;
+}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #333;
-    }
+label, h3 {
+  color: #00ccff;
+}
 
-    table, th, td {
-      border: 1px solid #fff;
-      padding: 10px;
-      text-align: center;
-    }
+input[type="number"], input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0 12px;
+  border: none;
+  border-radius: 5px;
+}
 
-    th {
-      background-color: #ff3333;
-    }
+.btn-center {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 10px;
+}
 
-    td {
-      background-color: #444;
-    }
+button {
+  background-color: #ff3333;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-    /* Responsive */
-    @media screen and (max-width: 768px) {
-      .sidebar {
-        width: 100%;
-        height: auto;
-        flex-direction: row;
-        justify-content: center;
-        border-right: none;
-        border-bottom: 4px solid #ff3333;
-      }
-      .main-content {
-        margin-left: 0;
-        margin-top: 140px;
-      }
-    }
-  </style>
+button:hover {
+  background-color: #cc0000;
+}
+
+.gasto-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.gasto-item input {
+  flex: 1;
+}
+
+#resultado {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+#gastos p {
+  margin: 5px 0;
+}
+
+#ingresoFormateado, #valorGastoFormateado {
+  font-size: 14px;
+  color: #bbbbbb;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.btn-eliminar {
+  color: white;
+  background: #ff3333;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#tablaComparacion, #seccionGraficas {
+  margin-top: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #333;
+}
+
+table, th, td {
+  border: 1px solid #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #ff3333;
+}
+
+td {
+  background-color: #444;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: center;
+    border-right: none;
+    border-bottom: 4px solid #ff3333;
+  }
+
+  .main-content {
+    margin-left: 0;
+    margin-top: 140px;
+  }
+
+}
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Simulador de Ahorro Mensual</h1>
 
-    <h3>Mes del registro</h3>
-    <input type="text" id="mesRegistro" placeholder="Ej: Marzo 2025" />
-  <!-- Menú lateral -->
-  <div class="sidebar">
-    <h2>Menú</h2>
-    <button onclick="mostrarSeccion('inicio')">Inicio</button>
-    <button onclick="mostrarSeccion('tabla')">Tabla de comparación</button>
-    <button onclick="mostrarSeccion('graficas')">Gráficas</button>
-  </div>
+  <!-- Menú lateral -->
 
-    <h3>¿Cuánto ganas al mes?</h3>
-    <input type="number" id="ingreso" placeholder="Ej: 1500000" oninput="formatearIngreso()" />
-    <p id="ingresoFormateado"></p>
-  <!-- Contenido principal -->
-  <div class="main-content">
-    <div class="container" id="inicio">
-      <h1>Simulador de Ahorro Mensual</h1>
+  <div class="sidebar">
+    <h2>Menú</h2>
+    <button onclick="mostrarSeccion('inicio')">Inicio</button>
+    <button onclick="mostrarSeccion('tabla')">Tabla de comparación</button>
+    <button onclick="mostrarSeccion('graficas')">Gráficas</button>
+  </div>
 
-    <h3>Gastos Mensuales</h3>
-    <div class="gasto-item">
-      <input type="text" placeholder="Nombre del gasto" id="nombreGasto" />
-      <input type="number" placeholder="Valor del gasto" id="valorGasto" oninput="formatearValorGasto()" />
-    </div>
-    <p id="valorGastoFormateado"></p>
-      <h3>Mes del registro</h3>
-      <input type="text" id="mesRegistro" placeholder="Ej: Marzo 2025" />
+  <!-- Contenido principal -->
 
-    <div class="btn-center">
-      <button onclick="agregarGasto()">Agregar gasto</button>
-      <button onclick="mostrarComparacion()">Ver comparación por meses</button>
-    </div>
-      <h3>¿Cuánto ganas al mes?</h3>
-      <input type="number" id="ingreso" placeholder="Ej: 1500000" oninput="formatearIngreso()" />
-      <p id="ingresoFormateado"></p>
+  <div class="main-content">
+    <div class="container" id="inicio">
 
-      <h3>Gastos Mensuales</h3>
-      <div class="gasto-item">
-        <input type="text" placeholder="Nombre del gasto" id="nombreGasto" />
-        <input type="number" placeholder="Valor del gasto" id="valorGasto" oninput="formatearValorGasto()" />
-      </div>
-      <p id="valorGastoFormateado"></p>
+      <h1>Simulador de Ahorro Mensual</h1>
 
-    <div id="gastos"></div>
-      <div class="btn-center">
-        <button onclick="agregarGasto()">Agregar gasto</button>
-      </div>
+<h3>Mes del registro</h3>
+  <input type="text" id="mesRegistro" placeholder="Ej: Marzo 2025" />
 
-    <div class="btn-center">
-      <button onclick="calcularAhorro()">Calcular Ahorro</button>
-      <div id="gastos"></div>
+  <h3>¿Cuánto ganas al mes?</h3>
+  <input type="number" id="ingreso" placeholder="Ej: 1500000" oninput="formatearIngreso()" />
+  <p id="ingresoFormateado"></p>
 
-      <div class="btn-center">
-        <button onclick="calcularAhorro()">Calcular Ahorro</button>
-      </div>
+  <h3>Gastos Mensuales</h3>
+      
+  <div class="gasto-item">
+    <input type="text" placeholder="Nombre del gasto" id="nombreGasto" />
+    <input type="number" placeholder="Valor del gasto" id="valorGasto" oninput="formatearValorGasto()" />
+    
+  </div>
+  <p id="valorGastoFormateado"></p>
+  <div class="btn-center">
+    <button onclick="agregarGasto()">Agregar gasto</button>
+  </div>
 
-      <div id="resultado"></div>
-    </div>
+  <div id="gastos"></div>
 
-    <div id="resultado"></div>
-    <div id="tablaComparacion"></div>
-    <div class="container" id="tablaComparacion" style="display:none;"></div>
+  <div class="btn-center">
+    <button onclick="calcularAhorro()">Calcular Ahorro</button>
+  </div>
 
-    <div class="container" id="seccionGraficas" style="display:none;">
-      <h3>Gráficas (próximamente)</h3>
-      <p style="color: yellow;">Aquí podrás ver gráficas interactivas de tu ahorro mensual.</p>
-    </div>
-  </div>
+  <div id="resultado"></div>
+</div>
 
-  <script>
-    let listaGastos = [];
-    let registrosMensuales = [];
+<div class="container" id="tablaComparacion" style="display:none;"></div>
 
-    function formatearIngreso() {
-      const ingresoInput = document.getElementById('ingreso');
-      const ingresoFormateado = document.getElementById('ingresoFormateado');
-      const valor = parseFloat(ingresoInput.value);
+<div class="container" id="seccionGraficas" style="display:none;">
+  <h3>Gráficas (próximamente)</h3>
+  <p style="color: yellow;">Aquí podrás ver gráficas interactivas de tu ahorro mensual.</p>
+</div>
+  </div>
+  <script>
 
-      if (!isNaN(valor)) {
-        ingresoFormateado.textContent = `Ingreso escrito: $${valor.toLocaleString('es-CO')}`;
-      } else {
-        ingresoFormateado.textContent = '';
-      }
-      const ingreso = parseFloat(document.getElementById('ingreso').value);
-      document.getElementById('ingresoFormateado').textContent =
-        isNaN(ingreso) ? '' : `Ingreso escrito: $${ingreso.toLocaleString('es-CO')}`;
-    }
+    let listaGastos = [];
+    let registrosMensuales = [];
 
-    function formatearValorGasto() {
-      const valorInput = document.getElementById('valorGasto');
-      const valorFormateado = document.getElementById('valorGastoFormateado');
-      const valor = parseFloat(valorInput.value);
+    function formatearIngreso() {
+      const ingreso = parseFloat(document.getElementById('ingreso').value);
+      document.getElementById('ingresoFormateado').textContent =
+        isNaN(ingreso) ? '' : Ingreso escrito: $${ingreso.toLocaleString('es-CO')};
+    }
 
-      if (!isNaN(valor)) {
-        valorFormateado.textContent = `Valor escrito: $${valor.toLocaleString('es-CO')}`;
-      } else {
-        valorFormateado.textContent = '';
-      }
-      const valor = parseFloat(document.getElementById('valorGasto').value);
-      document.getElementById('valorGastoFormateado').textContent =
-        isNaN(valor) ? '' : `Valor escrito: $${valor.toLocaleString('es-CO')}`;
-    }
+    function formatearValorGasto() {
+      const valor = parseFloat(document.getElementById('valorGasto').value);
+      document.getElementById('valorGastoFormateado').textContent =
+        isNaN(valor) ? '' : Valor escrito: $${valor.toLocaleString('es-CO')};
+    }
 
-    function agregarGasto() {
-@@ -177,7 +266,7 @@ <h3>Gastos Mensuales</h3>
-      contenedor.innerHTML = '';
-      listaGastos.forEach((gasto, index) => {
-        contenedor.innerHTML += `<p>${gasto.nombre}: $${gasto.valor.toLocaleString('es-CO')} 
-          <button class="btn-eliminar" onclick="eliminarGasto(${index})">X</button></p>`;
-        <button class="btn-eliminar" onclick="eliminarGasto(${index})">X</button></p>`;
-      });
-    }
+    function agregarGasto() {
+      const nombre = document.getElementById('nombreGasto').value;
+      const valor = parseFloat(document.getElementById('valorGasto').value);
 
-@@ -188,80 +277,79 @@ <h3>Gastos Mensuales</h3>
+      if (!nombre || isNaN(valor) || valor <= 0) {
+        alert('Por favor ingresa un nombre de gasto y un valor válido.');
+        return;
+      }
 
-    function calcularAhorro() {
-      const ingreso = parseFloat(document.getElementById('ingreso').value);
-      const mesRegistro = document.getElementById('mesRegistro').value;
-      const mes = document.getElementById('mesRegistro').value;
+      listaGastos.push({ nombre, valor });
+      document.getElementById('nombreGasto').value = '';
+      document.getElementById('valorGasto').value = '';
+      document.getElementById('valorGastoFormateado').textContent = '';
+      mostrarGastos();
+    }
 
-      if (!mesRegistro) {
-        alert('Por favor ingresa el mes del registro.');
-      if (!mes || isNaN(ingreso) || ingreso <= 0) {
-        alert('Completa los campos correctamente.');
-        return;
-      }
+    function mostrarGastos() {
+      const contenedor = document.getElementById('gastos');
+      contenedor.innerHTML = '';
+      listaGastos.forEach((gasto, index) => {
+        contenedor.innerHTML += <p>${gasto.nombre}: $${gasto.valor.toLocaleString('es-CO')} 
+        <button class="btn-eliminar" onclick="eliminarGasto(${index})">X</button></p>;
+      });
+    }
 
-      if (isNaN(ingreso) || ingreso <= 0) {
-        alert('Por favor ingresa un ingreso mensual válido.');
-        return;
-      }
+    function eliminarGasto(index) {
+      listaGastos.splice(index, 1);
+      mostrarGastos();
+    }
 
-      const totalGastos = listaGastos.reduce((total, gasto) => total + gasto.valor, 0);
-      const totalGastos = listaGastos.reduce((acc, g) => acc + g.valor, 0);
-      const ahorro = ingreso - totalGastos;
+    function calcularAhorro() {
+      
+      const ingreso = parseFloat(document.getElementById('ingreso').value);
+      const mes = document.getElementById('mesRegistro').value;
 
-      registrosMensuales.push({
-        mes: mesRegistro,
-        mes,
-        ingreso,
-        gastos: [...listaGastos],
-        totalGastos,
-        ahorro
-      });
+      if (!mes || isNaN(ingreso) || ingreso <= 0) {
+        alert('Completa los campos correctamente.');
+        return;
+      }
 
-      let mensaje = `
-        Ingreso mensual: $${ingreso.toLocaleString('es-CO')}<br>
-        Total de gastos: $${totalGastos.toLocaleString('es-CO')}<br>
-      const resultado = document.getElementById('resultado');
-      resultado.innerHTML = `
-        Ingreso: $${ingreso.toLocaleString('es-CO')}<br>
-        Gastos: $${totalGastos.toLocaleString('es-CO')}<br>
-        ${ahorro >= 0 
-          ? `Puedes ahorrar: <span style="color:lightgreen;">$${ahorro.toLocaleString('es-CO')}</span>` 
-          : `<span style="color:red;">Déficit de $${Math.abs(ahorro).toLocaleString('es-CO')}</span>`}
-      `;
-    }
+      const totalGastos = listaGastos.reduce((acc, g) => acc + g.valor, 0);
+      const ahorro = ingreso - totalGastos;
 
-      if (ahorro < 0) {
-        mensaje += `<span style="color: red;">Estás gastando más de lo que ganas. Déficit de $${Math.abs(ahorro).toLocaleString('es-CO')}</span>`;
-      } else {
-        mensaje += `Puedes ahorrar: <span style="color: #28a745;">$${ahorro.toLocaleString('es-CO')}</span>`;
-      }
-    function mostrarSeccion(seccion) {
-      document.getElementById('inicio').style.display = seccion === 'inicio' ? 'block' : 'none';
-      document.getElementById('tablaComparacion').style.display = seccion === 'tabla' ? 'block' : 'none';
-      document.getElementById('seccionGraficas').style.display = seccion === 'graficas' ? 'block' : 'none';
+      registrosMensuales.push({
+        mes,
+        ingreso,
+        totalGastos,
+        ahorro
+      });
 
-      document.getElementById('resultado').innerHTML = mensaje;
-      if (seccion === 'tabla') {
-        generarTabla();
-      }
-    }
+      const resultado = document.getElementById('resultado');
+      resultado.innerHTML = 
+        Ingreso: $${ingreso.toLocaleString('es-CO')}<br>
+        Gastos: $${totalGastos.toLocaleString('es-CO')}<br>
+        ${ahorro >= 0 
+          ? Puedes ahorrar: <span style="color:lightgreen;">$${ahorro.toLocaleString('es-CO')}</span> 
+          : <span style="color:red;">Déficit de $${Math.abs(ahorro).toLocaleString('es-CO')}</span>}
+      ;
+    }
 
-    function mostrarComparacion() {
-      const contenedor = document.getElementById('tablaComparacion');
-    function generarTabla() {
-      const tabla = document.getElementById('tablaComparacion');
+    function mostrarSeccion(seccion) {
+      document.getElementById('inicio').style.display = seccion === 'inicio' ? 'block' : 'none';
+      document.getElementById('tablaComparacion').style.display = seccion === 'tabla' ? 'block' : 'none';
+      document.getElementById('seccionGraficas').style.display = seccion === 'graficas' ? 'block' : 'none';
 
-      if (registrosMensuales.length === 0) {
-        contenedor.innerHTML = '<p style="color: yellow;">No hay datos guardados para comparar.</p>';
-        tabla.innerHTML = '<p style="color: yellow;">No hay datos guardados para comparar.</p>';
-        return;
-      }
+      if (seccion === 'tabla') {
+        generarTabla();
+      }
+    }
 
-      let tablaHTML = `
-        <h3>Comparación Mensual</h3>
-        <table border="1" style="width:100%; border-collapse: collapse; background: #333; color: #fff;">
-          <thead>
-            <tr>
-              <th>Mes</th>
-              <th>Ingreso</th>
-              <th>Total Gastos</th>
-              <th>Ahorro</th>
-            </tr>
-          </thead>
-          <tbody>
-      `;
-      let html = `<h3>Comparación Mensual</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Mes</th>
-            <th>Ingreso</th>
-            <th>Gastos</th>
-            <th>Ahorro</th>
-          </tr>
-        </thead>
-        <tbody>`;
+    function generarTabla() {
+      const tabla = document.getElementById('tablaComparacion');
 
-      registrosMensuales.forEach(reg => {
-        tablaHTML += `
-        html += `
-          <tr>
-            <td>${reg.mes}</td>
-            <td>$${reg.ingreso.toLocaleString('es-CO')}</td>
-            <td>$${reg.totalGastos.toLocaleString('es-CO')}</td>
-            <td style="color: ${reg.ahorro < 0 ? 'red' : 'lightgreen'}">
-            <td style="color: ${reg.ahorro >= 0 ? 'lightgreen' : 'red'};">
-              $${reg.ahorro.toLocaleString('es-CO')}
-            </td>
-          </tr>
-        `;
-          </tr>`;
-      });
+      if (registrosMensuales.length === 0) {
+        tabla.innerHTML = '<p style="color: yellow;">No hay datos guardados para comparar.</p>';
+        return;
+      }
 
-      tablaHTML += `</tbody></table>`;
-      contenedor.innerHTML = tablaHTML;
-      html += `</tbody></table>`;
-      tabla.innerHTML = html;
-    }
-  </script>
+      let html = <h3>Comparación Mensual</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Mes</th>
+            <th>Ingreso</th>
+            <th>Gastos</th>
+            <th>Ahorro</th>
+          </tr>
+        </thead>
+        <tbody>;
+
+      registrosMensuales.forEach(reg => {
+        html += 
+          <tr>
+            <td>${reg.mes}</td>
+            <td>$${reg.ingreso.toLocaleString('es-CO')}</td>
+            <td>$${reg.totalGastos.toLocaleString('es-CO')}</td>
+            <td style="color: ${reg.ahorro >= 0 ? 'lightgreen' : 'red'};"> 
+              $${reg.ahorro.toLocaleString('es-CO')} 
+            </td>
+          </tr>;
+      });
+      html += </tbody></table>;
+      tabla.innerHTML = html;
+    }
+  </script>
 </body>
 </html>
