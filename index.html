@@ -17,7 +17,7 @@
 
     /* ====== MENÚ LATERAL ====== */
     .sidebar {
-      width: 150px;
+      width: 220px;
       background-color: #1c1c1c;
       padding: 20px;
       height: 100vh;
@@ -27,16 +27,16 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      border-right: 3px solid #ffffff;
+      border-right: 4px solid #ff3333;
     }
 
     .sidebar h2 {
-      color: red;
+      color: #ff3333;
       text-align: center;
     }
 
     .sidebar button {
-      background-color: #ff0000;
+      background-color: #ff3333;
       color: white;
       border: none;
       padding: 10px;
@@ -62,7 +62,7 @@
       margin: auto;
       background-color: #1c1c1c;
       padding: 20px;
-      border-radius: 10px solid #ffffff;
+      border-radius: 10px;
     }
 
     h1 {
@@ -234,13 +234,13 @@
     function formatearIngreso() {
       const ingreso = parseFloat(document.getElementById('ingreso').value);
       document.getElementById('ingresoFormateado').textContent =
-        isNaN(ingreso) ? '' : Ingreso escrito: $${ingreso.toLocaleString('es-CO')};
+        isNaN(ingreso) ? '' : `Ingreso escrito: $${ingreso.toLocaleString('es-CO')}`;
     }
 
     function formatearValorGasto() {
       const valor = parseFloat(document.getElementById('valorGasto').value);
       document.getElementById('valorGastoFormateado').textContent =
-        isNaN(valor) ? '' : Valor escrito: $${valor.toLocaleString('es-CO')};
+        isNaN(valor) ? '' : `Valor escrito: $${valor.toLocaleString('es-CO')}`;
     }
 
     function agregarGasto() {
@@ -265,8 +265,8 @@
       const contenedor = document.getElementById('gastos');
       contenedor.innerHTML = '';
       listaGastos.forEach((gasto, index) => {
-        contenedor.innerHTML += <p>${gasto.nombre}: $${gasto.valor.toLocaleString('es-CO')} 
-        <button class="btn-eliminar" onclick="eliminarGasto(${index})">X</button></p>;
+        contenedor.innerHTML += `<p>${gasto.nombre}: $${gasto.valor.toLocaleString('es-CO')} 
+        <button class="btn-eliminar" onclick="eliminarGasto(${index})">X</button></p>`;
       });
     }
 
@@ -295,13 +295,13 @@
       });
 
       const resultado = document.getElementById('resultado');
-      resultado.innerHTML = 
+      resultado.innerHTML = `
         Ingreso: $${ingreso.toLocaleString('es-CO')}<br>
         Gastos: $${totalGastos.toLocaleString('es-CO')}<br>
         ${ahorro >= 0 
-          ? Puedes ahorrar: <span style="color:lightgreen;">$${ahorro.toLocaleString('es-CO')}</span> 
-          : <span style="color:red;">Déficit de $${Math.abs(ahorro).toLocaleString('es-CO')}</span>}
-      ;
+          ? `Puedes ahorrar: <span style="color:lightgreen;">$${ahorro.toLocaleString('es-CO')}</span>` 
+          : `<span style="color:red;">Déficit de $${Math.abs(ahorro).toLocaleString('es-CO')}</span>`}
+      `;
     }
 
     function mostrarSeccion(seccion) {
@@ -322,7 +322,7 @@
         return;
       }
 
-      let html = <h3>Comparación Mensual</h3>
+      let html = `<h3>Comparación Mensual</h3>
       <table>
         <thead>
           <tr>
@@ -332,10 +332,10 @@
             <th>Ahorro</th>
           </tr>
         </thead>
-        <tbody>;
+        <tbody>`;
 
       registrosMensuales.forEach(reg => {
-        html += 
+        html += `
           <tr>
             <td>${reg.mes}</td>
             <td>$${reg.ingreso.toLocaleString('es-CO')}</td>
@@ -343,10 +343,10 @@
             <td style="color: ${reg.ahorro >= 0 ? 'lightgreen' : 'red'};">
               $${reg.ahorro.toLocaleString('es-CO')}
             </td>
-          </tr>;
+          </tr>`;
       });
 
-      html += </tbody></table>;
+      html += `</tbody></table>`;
       tabla.innerHTML = html;
     }
   </script>
