@@ -222,8 +222,12 @@
     <div class="container" id="tablaComparacion" style="display:none;"></div>
 
     <div class="container" id="seccionGraficas" style="display:none;">
-      <h3>Gráficas (próximamente)</h3>
-      <p style="color: yellow;">Aquí podrás ver gráficas interactivas de tu ahorro mensual.</p>
+      <h2>Gráficas</h2>
+      <h3>Gráfico de Ahorro Mensual</h3>
+      <canvas id="graficoAhorro" width="400" height="200"></canvas>
+      
+      <h3>Gastos vs Ahorro (último mes)</h3>
+      <canvas id="graficoGastosAhorro" width="400" height="200"></canvas>
     </div>
   </div>
 
@@ -349,6 +353,54 @@
       html += `</tbody></table>`;
       tabla.innerHTML = html;
     }
+    function mostrarGraficas() {
+    const ahorroCanvas = document.getElementById('graficoAhorro');
+    const pastelCanvas = document.getElementById('graficoGastosAhorro');
+
+    // Destruir gráficas anteriores si existen
+    Chart.getChart(ahorroCanvas)?.destroy();
+    Chart.getChart(pastelCanvas)?.destroy();
+
+    // Gráfico de barras
+    const etiquetas = registrosMensuales.map(r => r.mes);
+    const datosAhorro = registrosMensuales.map(r => r.ahorro);
+
+    new Chart(ahorroCanvas, {
+      type: 'bar',
+      data: {
+        labels: etiquetas,
+        datasets: [{
+          label: 'Ahorro mensual',
+          data: datosAhorro,
+          backgroundColor: 'lightgreen',
+          borderColor: 'green',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // Gráfico de pastel
+    if (registrosMensuales.length > 0) {
+      const ultimo = registrosMensuales[registrosMensuales.length - 1];
+      new Chart(pastelCanvas, {
+        type: 'pie',
+        data: {
+          labels: ['Gastos', 'Ahorro'],
+          datasets: [{
+            data: [ultimo.totalGastos, ultimo.ahorro],
+            backgroundColor: ['#ff3333', '#00cc66']
+          }]
+        }
+      });
+    }
+  }
+
+  mostrarSeccion('registro');
   </script>
 </body>
 </html>
