@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
   <link rel="icon" type="image/png" href="Ahorro.png">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Simulador de Ahorro Mensual</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       background-color: #000;
@@ -16,7 +16,6 @@
       display: flex;
     }
 
-    /* ====== MENÚ LATERAL ====== */
     .sidebar {
       width: 150px;
       background-color: #1c1c1c;
@@ -51,7 +50,6 @@
       background-color: #cc0000;
     }
 
-    /* ====== CONTENIDO PRINCIPAL ====== */
     .main-content {
       margin-left: 240px;
       padding: 20px;
@@ -131,7 +129,7 @@
 
     .btn-eliminar {
       color: white;
-      background: red;
+      background: #ff3333;
       border: none;
       font-size: 16px;
       cursor: pointer;
@@ -161,7 +159,6 @@
       background-color: #444;
     }
 
-    /* Responsive */
     @media screen and (max-width: 768px) {
       .sidebar {
         width: 100%;
@@ -180,7 +177,6 @@
 </head>
 <body>
 
-  <!-- Menú lateral -->
   <div class="sidebar">
     <h2>Menú</h2>
     <button onclick="mostrarSeccion('inicio')">Inicio</button>
@@ -188,7 +184,6 @@
     <button onclick="mostrarSeccion('graficas')">Gráficas</button>
   </div>
 
-  <!-- Contenido principal -->
   <div class="main-content">
     <div class="container" id="inicio">
       <h1>Simulador de Ahorro Mensual</h1>
@@ -316,6 +311,8 @@
 
       if (seccion === 'tabla') {
         generarTabla();
+      } else if (seccion === 'graficas') {
+        mostrarGraficas();
       }
     }
 
@@ -354,54 +351,50 @@
       html += `</tbody></table>`;
       tabla.innerHTML = html;
     }
+
     function mostrarGraficas() {
-    const ahorroCanvas = document.getElementById('graficoAhorro');
-    const pastelCanvas = document.getElementById('graficoGastosAhorro');
+      const ahorroCanvas = document.getElementById('graficoAhorro');
+      const pastelCanvas = document.getElementById('graficoGastosAhorro');
 
-    // Destruir gráficas anteriores si existen
-    Chart.getChart(ahorroCanvas)?.destroy();
-    Chart.getChart(pastelCanvas)?.destroy();
+      Chart.getChart(ahorroCanvas)?.destroy();
+      Chart.getChart(pastelCanvas)?.destroy();
 
-    // Gráfico de barras
-    const etiquetas = registrosMensuales.map(r => r.mes);
-    const datosAhorro = registrosMensuales.map(r => r.ahorro);
+      const etiquetas = registrosMensuales.map(r => r.mes);
+      const datosAhorro = registrosMensuales.map(r => r.ahorro);
 
-    new Chart(ahorroCanvas, {
-      type: 'bar',
-      data: {
-        labels: etiquetas,
-        datasets: [{
-          label: 'Ahorro mensual',
-          data: datosAhorro,
-          backgroundColor: 'lightgreen',
-          borderColor: 'green',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
-
-    // Gráfico de pastel
-    if (registrosMensuales.length > 0) {
-      const ultimo = registrosMensuales[registrosMensuales.length - 1];
-      new Chart(pastelCanvas, {
-        type: 'pie',
+      new Chart(ahorroCanvas, {
+        type: 'bar',
         data: {
-          labels: ['Gastos', 'Ahorro'],
+          labels: etiquetas,
           datasets: [{
-            data: [ultimo.totalGastos, ultimo.ahorro],
-            backgroundColor: ['#ff3333', '#00cc66']
+            label: 'Ahorro mensual',
+            data: datosAhorro,
+            backgroundColor: 'lightgreen',
+            borderColor: 'green',
+            borderWidth: 1
           }]
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: true }
+          }
         }
       });
-    }
-  }
 
-  mostrarSeccion('registro');
+      if (registrosMensuales.length > 0) {
+        const ultimo = registrosMensuales[registrosMensuales.length - 1];
+        new Chart(pastelCanvas, {
+          type: 'pie',
+          data: {
+            labels: ['Gastos', 'Ahorro'],
+            datasets: [{
+              data: [ultimo.totalGastos, ultimo.ahorro],
+              backgroundColor: ['#ff3333', '#00cc66']
+            }]
+          }
+        });
+      }
+    }
   </script>
 </body>
 </html>
