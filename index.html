@@ -14,6 +14,8 @@
       margin: 0;
       padding: 0;
       display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
     .sidebar {
       width: 150px;
@@ -46,9 +48,10 @@
       background-color: #cc0000;
     }
     .main-content {
-      margin-left: 240px;
+      margin-left: 150px;
       padding: 20px;
       width: 100%;
+      flex: 1;
     }
     .container {
       max-width: 700px;
@@ -135,6 +138,19 @@
     td {
       background-color: #444;
     }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #111;
+      color: #999;
+      font-size: 14px;
+      border-top: 2px solid red;
+    }
+    .logo-img {
+      display: block;
+      margin: 20px auto;
+      max-width: 150px;
+    }
     @media screen and (max-width: 768px) {
       .sidebar {
         width: 100%;
@@ -153,7 +169,7 @@
 </head>
 <body>
 
- <div class="sidebar">
+  <div class="sidebar">
     <h2>Menú</h2>
     <button onclick="mostrarSeccion('inicio')">Inicio</button>
     <button onclick="mostrarSeccion('tabla')">Tabla de comparación</button>
@@ -162,6 +178,7 @@
 
   <div class="main-content">
     <div class="container" id="inicio">
+      <img src="Ahorro.png" alt="Logo de la página" class="logo-img" />
       <h1>Simulador de Ahorro Mensual</h1>
 
       <h3>Mes del registro</h3>
@@ -202,6 +219,10 @@
       <canvas id="graficoGastosAhorro" width="400" height="200"></canvas>
     </div>
   </div>
+
+  <footer>
+    Creada por Dylan Tirado y Angie Martinez
+  </footer>
 
   <script>
     let listaGastos = [];
