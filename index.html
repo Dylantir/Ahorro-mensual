@@ -129,7 +129,7 @@
 
     .btn-eliminar {
       color: white;
-      background: red;
+      background: #ff3333;
       border: none;
       font-size: 16px;
       cursor: pointer;
@@ -177,7 +177,7 @@
 </head>
 <body>
 
-  <div class="sidebar">
+ <div class="sidebar">
     <h2>Menú</h2>
     <button onclick="mostrarSeccion('inicio')">Inicio</button>
     <button onclick="mostrarSeccion('tabla')">Tabla de comparación</button>
@@ -192,7 +192,7 @@
       <input type="text" id="mesRegistro" placeholder="Ej: Marzo 2025" />
 
       <h3>¿Cuánto ganas al mes?</h3>
-      <input type="number" id="ingreso" placeholder="Ej: 1500000" oninput="formatearIngreso()" />
+      <input type="number" id="ingreso" placeholder="Ej: 1500000" oninput="formatearIngreso(); guardarDatosTemporalmente()" />
       <p id="ingresoFormateado"></p>
 
       <h3>Gastos Mensuales</h3>
@@ -231,6 +231,40 @@
     let listaGastos = [];
     let registrosMensuales = [];
 
+    // Cargar datos al iniciar
+    window.onload = function () {
+      const gastosGuardados = localStorage.getItem('listaGastos');
+      const registrosGuardados = localStorage.getItem('registrosMensuales');
+      const ingresoGuardado = localStorage.getItem('ingreso');
+      const mesGuardado = localStorage.getItem('mesRegistro');
+
+      if (gastosGuardados) {
+        listaGastos = JSON.parse(gastosGuardados);
+        mostrarGastos();
+      }
+
+      if (registrosGuardados) {
+        registrosMensuales = JSON.parse(registrosGuardados);
+      }
+
+      if (ingresoGuardado) {
+        document.getElementById('ingreso').value = ingresoGuardado;
+        formatearIngreso();
+      }
+
+      if (mesGuardado) {
+        document.getElementById('mesRegistro').value = mesGuardado;
+      }
+    };
+
+    function guardarDatosTemporalmente() {
+      const ingreso = document.getElementById('ingreso').value;
+      const mes = document.getElementById('mesRegistro').value;
+      localStorage.setItem('listaGastos', JSON.stringify(listaGastos));
+      localStorage.setItem('ingreso', ingreso);
+      localStorage.setItem('mesRegistro', mes);
+    }
+
     function formatearIngreso() {
       const ingreso = parseFloat(document.getElementById('ingreso').value);
       document.getElementById('ingresoFormateado').textContent =
@@ -258,6 +292,7 @@
       document.getElementById('valorGasto').value = '';
       document.getElementById('valorGastoFormateado').textContent = '';
 
+      guardarDatosTemporalmente();
       mostrarGastos();
     }
 
@@ -272,6 +307,7 @@
 
     function eliminarGasto(index) {
       listaGastos.splice(index, 1);
+      guardarDatosTemporalmente();
       mostrarGastos();
     }
 
@@ -287,12 +323,13 @@
       const totalGastos = listaGastos.reduce((acc, g) => acc + g.valor, 0);
       const ahorro = ingreso - totalGastos;
 
-      registrosMensuales.push({
-        mes,
-        ingreso,
-        totalGastos,
-        ahorro
-      });
+      registrosMensuales.push({ mes, ingreso, totalGastos, ahorro });
+
+      localStorage.setItem('registrosMensuales', JSON.stringify(registrosMensuales));
+      localStorage.removeItem('listaGastos'); // Limpia los gastos del mes ya calculado
+      listaGastos = [];
+      guardarDatosTemporalmente();
+      mostrarGastos();
 
       const resultado = document.getElementById('resultado');
       resultado.innerHTML = `
