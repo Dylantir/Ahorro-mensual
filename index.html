@@ -323,7 +323,13 @@
       const totalGastos = listaGastos.reduce((acc, g) => acc + g.valor, 0);
       const ahorro = ingreso - totalGastos;
 
-      registrosMensuales.push({ mes, ingreso, totalGastos, ahorro });
+     const indiceExistente = registrosMensuales.findIndex(r => r.mes.toLowerCase() === mes.toLowerCase());
+      const nuevoRegistro = {mes,ingreso,totalGastos,ahorro};
+      if (indiceExistente !== -1) 
+      {registrosMensuales[indiceExistente] = nuevoRegistro;}
+      else {
+        registrosMensuales.push(nuevoRegistro);
+      }
 
       localStorage.setItem('registrosMensuales', JSON.stringify(registrosMensuales));
       localStorage.removeItem('listaGastos'); // Limpia los gastos del mes ya calculado
