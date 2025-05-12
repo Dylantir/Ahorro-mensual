@@ -15,7 +15,6 @@
       padding: 0;
       display: flex;
     }
-
     .sidebar {
       width: 150px;
       background-color: #1c1c1c;
@@ -29,12 +28,10 @@
       gap: 20px;
       border-right: 3px solid red;
     }
-
     .sidebar h2 {
       color: white;
       text-align: center;
     }
-
     .sidebar button {
       background-color: red;
       color: white;
@@ -45,17 +42,14 @@
       font-size: 16px;
       transition: background-color 0.3s;
     }
-
     .sidebar button:hover {
       background-color: #cc0000;
     }
-
     .main-content {
       margin-left: 240px;
       padding: 20px;
       width: 100%;
     }
-
     .container {
       max-width: 700px;
       margin: auto;
@@ -63,16 +57,13 @@
       padding: 20px;
       border-radius: 10px;
     }
-
     h1 {
       color: red;
       text-align: center;
     }
-
     label, h3 {
       color: #00ccff;
     }
-
     input[type="number"], input[type="text"] {
       width: 100%;
       padding: 8px;
@@ -80,14 +71,12 @@
       border: none;
       border-radius: 5px;
     }
-
     .btn-center {
       display: flex;
       justify-content: center;
       margin-top: 10px;
       gap: 10px;
     }
-
     button {
       background-color: red;
       border: none;
@@ -96,37 +85,30 @@
       border-radius: 5px;
       cursor: pointer;
     }
-
     button:hover {
       background-color: #cc0000;
     }
-
     .gasto-item {
       display: flex;
       gap: 10px;
       margin-bottom: 10px;
     }
-
     .gasto-item input {
       flex: 1;
     }
-
     #resultado {
       margin-top: 20px;
       font-weight: bold;
     }
-
     #gastos p {
       margin: 5px 0;
     }
-
     #ingresoFormateado, #valorGastoFormateado {
       font-size: 14px;
       color: #bbbbbb;
       margin-top: -10px;
       margin-bottom: 10px;
     }
-
     .btn-eliminar {
       color: white;
       background: #ff3333;
@@ -134,31 +116,25 @@
       font-size: 16px;
       cursor: pointer;
     }
-
     #tablaComparacion, #seccionGraficas {
       margin-top: 30px;
     }
-
     table {
       width: 100%;
       border-collapse: collapse;
       background: #333;
     }
-
     table, th, td {
       border: 1px solid #fff;
       padding: 10px;
       text-align: center;
     }
-
     th {
       background-color: #ff3333;
     }
-
     td {
       background-color: #444;
     }
-
     @media screen and (max-width: 768px) {
       .sidebar {
         width: 100%;
@@ -231,67 +207,46 @@
     let listaGastos = [];
     let registrosMensuales = [];
 
-    // Cargar datos al iniciar
     window.onload = function () {
       const gastosGuardados = localStorage.getItem('listaGastos');
       const registrosGuardados = localStorage.getItem('registrosMensuales');
       const ingresoGuardado = localStorage.getItem('ingreso');
       const mesGuardado = localStorage.getItem('mesRegistro');
 
-      if (gastosGuardados) {
-        listaGastos = JSON.parse(gastosGuardados);
-        mostrarGastos();
-      }
+      if (gastosGuardados) listaGastos = JSON.parse(gastosGuardados);
+      if (registrosGuardados) registrosMensuales = JSON.parse(registrosGuardados);
+      if (ingresoGuardado) document.getElementById('ingreso').value = ingresoGuardado;
+      if (mesGuardado) document.getElementById('mesRegistro').value = mesGuardado;
 
-      if (registrosGuardados) {
-        registrosMensuales = JSON.parse(registrosGuardados);
-      }
-
-      if (ingresoGuardado) {
-        document.getElementById('ingreso').value = ingresoGuardado;
-        formatearIngreso();
-      }
-
-      if (mesGuardado) {
-        document.getElementById('mesRegistro').value = mesGuardado;
-      }
+      formatearIngreso();
+      mostrarGastos();
     };
 
     function guardarDatosTemporalmente() {
-      const ingreso = document.getElementById('ingreso').value;
-      const mes = document.getElementById('mesRegistro').value;
       localStorage.setItem('listaGastos', JSON.stringify(listaGastos));
-      localStorage.setItem('ingreso', ingreso);
-      localStorage.setItem('mesRegistro', mes);
+      localStorage.setItem('ingreso', document.getElementById('ingreso').value);
+      localStorage.setItem('mesRegistro', document.getElementById('mesRegistro').value);
     }
 
     function formatearIngreso() {
       const ingreso = parseFloat(document.getElementById('ingreso').value);
-      document.getElementById('ingresoFormateado').textContent =
-        isNaN(ingreso) ? '' : `Ingreso escrito: $${ingreso.toLocaleString('es-CO')}`;
+      document.getElementById('ingresoFormateado').textContent = isNaN(ingreso) ? '' : `Ingreso escrito: $${ingreso.toLocaleString('es-CO')}`;
     }
 
     function formatearValorGasto() {
       const valor = parseFloat(document.getElementById('valorGasto').value);
-      document.getElementById('valorGastoFormateado').textContent =
-        isNaN(valor) ? '' : `Valor escrito: $${valor.toLocaleString('es-CO')}`;
+      document.getElementById('valorGastoFormateado').textContent = isNaN(valor) ? '' : `Valor escrito: $${valor.toLocaleString('es-CO')}`;
     }
 
     function agregarGasto() {
       const nombre = document.getElementById('nombreGasto').value;
       const valor = parseFloat(document.getElementById('valorGasto').value);
-
-      if (!nombre || isNaN(valor) || valor <= 0) {
-        alert('Por favor ingresa un nombre de gasto y un valor válido.');
-        return;
-      }
+      if (!nombre || isNaN(valor) || valor <= 0) return alert('Por favor ingresa un nombre de gasto y un valor válido.');
 
       listaGastos.push({ nombre, valor });
-
       document.getElementById('nombreGasto').value = '';
       document.getElementById('valorGasto').value = '';
       document.getElementById('valorGastoFormateado').textContent = '';
-
       guardarDatosTemporalmente();
       mostrarGastos();
     }
@@ -314,85 +269,70 @@
     function calcularAhorro() {
       const ingreso = parseFloat(document.getElementById('ingreso').value);
       const mes = document.getElementById('mesRegistro').value;
-
-      if (!mes || isNaN(ingreso) || ingreso <= 0) {
-        alert('Completa los campos correctamente.');
-        return;
-      }
+      if (!mes || isNaN(ingreso) || ingreso <= 0) return alert('Completa los campos correctamente.');
 
       const totalGastos = listaGastos.reduce((acc, g) => acc + g.valor, 0);
       const ahorro = ingreso - totalGastos;
+      const nuevoRegistro = { mes, ingreso, totalGastos, ahorro };
 
-     const indiceExistente = registrosMensuales.findIndex(r => r.mes.toLowerCase() === mes.toLowerCase());
-      const nuevoRegistro = {mes,ingreso,totalGastos,ahorro};
-      if (indiceExistente !== -1) 
-      {registrosMensuales[indiceExistente] = nuevoRegistro;}
-      else {
-        registrosMensuales.push(nuevoRegistro);
-      }
+      const index = registrosMensuales.findIndex(r => r.mes.toLowerCase() === mes.toLowerCase());
+      if (index !== -1) registrosMensuales[index] = nuevoRegistro;
+      else registrosMensuales.push(nuevoRegistro);
 
       localStorage.setItem('registrosMensuales', JSON.stringify(registrosMensuales));
-      localStorage.removeItem('listaGastos'); // Limpia los gastos del mes ya calculado
+      localStorage.removeItem('listaGastos');
       listaGastos = [];
       guardarDatosTemporalmente();
       mostrarGastos();
 
-      const resultado = document.getElementById('resultado');
-      resultado.innerHTML = `
+      document.getElementById('resultado').innerHTML = `
         Ingreso: $${ingreso.toLocaleString('es-CO')}<br>
         Gastos: $${totalGastos.toLocaleString('es-CO')}<br>
         ${ahorro >= 0 
           ? `Puedes ahorrar: <span style="color:lightgreen;">$${ahorro.toLocaleString('es-CO')}</span>` 
-          : `<span style="color:red;">Déficit de $${Math.abs(ahorro).toLocaleString('es-CO')}</span>`}
-      `;
+          : `<span style="color:red;">Déficit de $${Math.abs(ahorro).toLocaleString('es-CO')}</span>`}`;
     }
 
     function mostrarSeccion(seccion) {
       document.getElementById('inicio').style.display = seccion === 'inicio' ? 'block' : 'none';
       document.getElementById('tablaComparacion').style.display = seccion === 'tabla' ? 'block' : 'none';
       document.getElementById('seccionGraficas').style.display = seccion === 'graficas' ? 'block' : 'none';
-
-      if (seccion === 'tabla') {
-        generarTabla();
-      } else if (seccion === 'graficas') {
-        mostrarGraficas();
-      }
+      if (seccion === 'tabla') generarTabla();
+      if (seccion === 'graficas') mostrarGraficas();
     }
 
     function generarTabla() {
       const tabla = document.getElementById('tablaComparacion');
-
       if (registrosMensuales.length === 0) {
         tabla.innerHTML = '<p style="color: yellow;">No hay datos guardados para comparar.</p>';
         return;
       }
 
-      let html = `<h3>Comparación Mensual</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Mes</th>
-            <th>Ingreso</th>
-            <th>Gastos</th>
-            <th>Ahorro</th>
-          </tr>
-        </thead>
-        <tbody>`;
+      let html = `<h3>Comparación Mensual</h3><table><thead><tr>
+        <th>Mes</th><th>Ingreso</th><th>Gastos</th><th>Ahorro</th><th>Eliminar</th>
+        </tr></thead><tbody>`;
 
-      registrosMensuales.forEach(reg => {
-        html += `
-          <tr>
-            <td>${reg.mes}</td>
-            <td>$${reg.ingreso.toLocaleString('es-CO')}</td>
-            <td>$${reg.totalGastos.toLocaleString('es-CO')}</td>
-            <td style="color: ${reg.ahorro >= 0 ? 'lightgreen' : 'red'};">
-              $${reg.ahorro.toLocaleString('es-CO')}
-            </td>
-          </tr>`;
+      registrosMensuales.forEach((reg, index) => {
+        html += `<tr>
+          <td>${reg.mes}</td>
+          <td>$${reg.ingreso.toLocaleString('es-CO')}</td>
+          <td>$${reg.totalGastos.toLocaleString('es-CO')}</td>
+          <td style="color:${reg.ahorro >= 0 ? 'lightgreen' : 'red'};">$${reg.ahorro.toLocaleString('es-CO')}</td>
+          <td><button class="btn-eliminar" onclick="eliminarRegistro(${index})">X</button></td>
+        </tr>`;
       });
 
       html += `</tbody></table>`;
       tabla.innerHTML = html;
+    }
+
+    function eliminarRegistro(index) {
+      if (confirm("¿Estás seguro de que deseas eliminar este registro?")) {
+        registrosMensuales.splice(index, 1);
+        localStorage.setItem('registrosMensuales', JSON.stringify(registrosMensuales));
+        generarTabla();
+        mostrarGraficas();
+      }
     }
 
     function mostrarGraficas() {
@@ -418,9 +358,7 @@
           }]
         },
         options: {
-          scales: {
-            y: { beginAtZero: true }
-          }
+          scales: { y: { beginAtZero: true } }
         }
       });
 
